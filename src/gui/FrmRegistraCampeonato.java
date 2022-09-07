@@ -12,14 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import entidad.Campeonato;
-import model.CampeonatoModel;
-import util.Validaciones;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-public class FrmRegistraCampeonato extends JFrame implements ActionListener {
+public class FrmRegistraCampeonato extends JFrame {
 	/**
 	 * 
 	 */
@@ -51,7 +44,7 @@ public class FrmRegistraCampeonato extends JFrame implements ActionListener {
 		txtNombre = new JTextField();
 		txtNombre.setBounds(270, 80, 120, 25);
 		getContentPane().add(txtNombre);
-
+  
 		lblAnno = new JLabel("Año");
 		lblAnno.setBounds(100, 130, 120, 25);
 		getContentPane().add(lblAnno);
@@ -61,7 +54,6 @@ public class FrmRegistraCampeonato extends JFrame implements ActionListener {
 		getContentPane().add(txtAnno);
 
 		btnRegistrar = new JButton("Registrar");
-		btnRegistrar.addActionListener(this);
 		btnRegistrar.setIcon(new ImageIcon(FrmRegistraCampeonato.class.getResource("/iconos/save.gif")));
 		btnRegistrar.setBounds(198, 185, 120, 33);
 		getContentPane().add(btnRegistrar);
@@ -83,37 +75,8 @@ public class FrmRegistraCampeonato extends JFrame implements ActionListener {
 		JOptionPane.showMessageDialog(this, ms);
 	}
 
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnRegistrar) {
-			actionPerformedBtnRegistrarJButton(e);
-		}
-	}
 	
-	protected void actionPerformedBtnRegistrarJButton(ActionEvent e) {
-		String nom = txtNombre.getText();
-		String annio = txtAnno.getText();
-		
-		if (!nom.matches(Validaciones.TEXTO)) {
-			mensaje("El nombre es de 1 a 20 caracteres");
-		}else if (!annio.matches(Validaciones.ANHO)) {
-			mensaje("El año es de 4 dígitos");
-		}else {
-			Campeonato obj = new Campeonato();
-			obj.setNombre(nom);
-			obj.setAnnio(Integer.parseInt(annio));
-			
-			CampeonatoModel model = new CampeonatoModel();
-			int salida = model.insertaCampeonato(obj);
-			
-			if (salida > 0) {
-				mensaje("Se insertó correctamente");
-			}else {
-				mensaje("Error en el Registro");
-			}
-			
-		}
-		
-	}
+	
 }
 
 
